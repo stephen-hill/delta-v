@@ -1,0 +1,21 @@
+<VirtualHost *:80>
+	DocumentRoot /home/stephen/delta-v/public
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /home/stephen/delta-v/public/>
+		AddHandler fcgid-script .php
+		FCGIWrapper /usr/lib/cgi-bin/php5 .php
+		Options ExecCGI
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel debug
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
