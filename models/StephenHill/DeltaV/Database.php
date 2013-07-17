@@ -2,6 +2,8 @@
 
 namespace StephenHill\DeltaV
 {
+	use \PDO;
+	
 	class Database
 	{
 		public $Connection;
@@ -28,7 +30,7 @@ namespace StephenHill\DeltaV
 				
 				if ($key !== key($kvp))
 				{
-					$query .= ','
+					$query .= ',';
 				}
 			}
 			
@@ -36,7 +38,7 @@ namespace StephenHill\DeltaV
 			
 			foreach($kvp as $key => $value)
 			{
-				$statement->bindParam(':' . $key, $value);
+				$statement->bindValue(':' . $key, $value);
 			}
 			
 			return $statement->execute();
