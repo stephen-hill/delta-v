@@ -25,27 +25,21 @@ namespace StephenHill\DeltaV
 			continue;
 		}
 		
-		rename($file, $new);
-		
 		$id3 = $getID3->analyze($file);
 		
 		$object = array
 		(
 			'id' => $hash,
 			'filename' => basename($file),
-			'bit-rate' => (int)$id3['audio']['bitrate'],
-			'sample-rate' => (int)$id3['audio']['sample_rate'],
+			'bitrate' => (int)$id3['audio']['bitrate'],
+			'samplerate' => (int)$id3['audio']['sample_rate'],
 			'channels' => (int)$id3['audio']['channels'],
 			'size' => filesize($file),
 			'duration' => (int)round($id3['playtime_seconds']),
 			'title' => $id3['tags']['id3v2']['title'][0],
 			'artist' => $id3['tags']['id3v2']['artist'][0],
 			'added' => date("Y-m-d H:i:s"),
-			'content-type' => $id3['mime_type'],
-			'favorite' => 0,
-			'playtime' => 0,
-			'plays' => 0,
-			'lastplay' => date("Y-m-d H:i:s")
+			'contenttype' => $id3['mime_type']
 		);
 		
 		if (array_key_exists('year', $id3['tags']['id3v2']) === true)
@@ -69,8 +63,9 @@ namespace StephenHill\DeltaV
 		}
 		
 		$database->Add('files', $object);
+		rename($file, $new);
 				
-		//var_dump($id3);
+		var_dump($id3);
 		
 		var_dump($object);
 	}
