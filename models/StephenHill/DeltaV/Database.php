@@ -24,7 +24,7 @@ namespace StephenHill\DeltaV
 			
 			foreach($kvp as $key => $value)
 			{
-				$query .= "`$key` = :" . str_replace('-', '', $key);
+				$query .= "`$key` = :" . $key;
 				
 				end($kvp);
 				
@@ -38,7 +38,7 @@ namespace StephenHill\DeltaV
 			
 			foreach($kvp as $key => $value)
 			{
-				$statement->bindValue(':' . str_replace('-', '', $key), $value);
+				$statement->bindValue(':' . $key, $value);
 			}
 			
 			$statement->execute();
